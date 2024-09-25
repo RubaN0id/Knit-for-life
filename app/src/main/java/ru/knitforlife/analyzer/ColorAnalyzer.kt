@@ -1,17 +1,8 @@
-package ru.knitforlife
+package ru.knitforlife.analyzer
 
-import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.ImageFormat
-import android.graphics.Rect
-import android.graphics.YuvImage
-import android.media.Image
-import android.util.Log
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
-import androidx.fragment.app.viewModels
 import ru.knitforlife.viewmodel.CameraViewModel
-import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
 import java.util.concurrent.TimeUnit
 

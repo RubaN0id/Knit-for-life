@@ -35,13 +35,7 @@ class MyColorRecyclerViewAdapter (val listner: ColorClickListner)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        val item = values[position]
-//        holder.idView.text = item.name
-//        holder.contentView.text = item.toColorString()
-//        holder.contentView.setBackgroundColor(android.graphics.Color.parseColor(item.toColorString()))
-//        holder.tv.setBackgroundColor(android.graphics.Color.parseColor(item.toColorString()))
-        holder.bind(values[position])
-
+       holder.bind(values[position])
     }
 
     override fun getItemCount(): Int = values.size
@@ -53,7 +47,7 @@ class MyColorRecyclerViewAdapter (val listner: ColorClickListner)
 
     fun addList(list: List<Color>) {
         values.addAll(list)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(values.size-10,10)
     }
 
 
@@ -61,7 +55,6 @@ class MyColorRecyclerViewAdapter (val listner: ColorClickListner)
         RecyclerView.ViewHolder(binding.root) {
         val idView: TextView = binding.itemNumber
         val contentView: TextView = binding.content
-//        val tv: ImageView = binding.tvColor
         val tv: TextView = binding.tvColor
 
         override fun toString(): String {

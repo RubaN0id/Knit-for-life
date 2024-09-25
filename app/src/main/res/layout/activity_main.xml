@@ -22,7 +22,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
+            android:text="Knit for life"
             android:textAlignment="center"
              />
 
@@ -36,29 +36,18 @@
 
             <ImageButton
                 android:id="@+id/toCameraButton"
-                android:layout_width="92dp"
-                android:layout_height="88dp"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 android:contentDescription="пряжа"
                 android:src="@drawable/baseline_camera_24"
                 android:tooltipText="Пряжа"
-                app:layout_constraintEnd_toStartOf="@+id/toCameraActivityButton"
-                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <ImageButton
-                android:id="@+id/toCameraActivityButton"
-                android:layout_width="92dp"
-                android:layout_height="88dp"
-                android:contentDescription="пряжа"
-                android:src="@drawable/baseline_camera_alt_24"
-                android:tooltipText="Пряжа"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toEndOf="@+id/toCameraButton"
 
-                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -72,13 +61,13 @@
 
             <ImageButton
                 android:id="@+id/toCollectionActivityButton"
-                android:layout_width="92dp"
-                android:layout_height="88dp"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 android:contentDescription="Коллекция"
                 android:src="@drawable/baseline_dashboard_24"
                 android:tooltipText="Пряжа"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

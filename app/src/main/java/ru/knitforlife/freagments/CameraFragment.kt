@@ -1,7 +1,6 @@
 package ru.knitforlife.freagments
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -10,7 +9,6 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.hardware.SensorManager.SENSOR_DELAY_NORMAL
-import android.location.Location
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
@@ -22,34 +20,20 @@ import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.RecyclerView
 import com.google.common.util.concurrent.ListenableFuture
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import ru.knitforlife.ColorAnalyzer
+import ru.knitforlife.analyzer.ColorAnalyzer
 import ru.knitforlife.R
 import ru.knitforlife.databinding.FragmentCameraBinding
-import ru.knitforlife.databinding.FragmentCollectionListBinding
-import ru.knitforlife.service.ColorApiService
 import ru.knitforlife.viewmodel.CameraViewModel
 import ru.knitforlife.viewmodel.ColorsViewModel
-import java.io.File
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import java.util.concurrent.Executors
 import javax.inject.Inject
-import javax.inject.Singleton
-import kotlin.math.abs
 
 @AndroidEntryPoint
 class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) {
@@ -75,7 +59,7 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
 //        return inflater.inflate(R.layout.fragment_camera, container, false)
 //    }
 
-    private var _binding: FragmentCameraBinding? =null
+    private var _binding: FragmentCameraBinding? = null
     private val binding get() = _binding!!
     private lateinit var safeContext: Context
 
@@ -134,8 +118,7 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
 
         sensorEventListener = object : SensorEventListener {
             override fun onSensorChanged(event: SensorEvent) {
-//                val tilt = event.values[2]
-//                binding.errorTextView.visibility = if (abs(tilt) > 2) View.VISIBLE else View.GONE
+                //nothing to do
             }
 
             override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
@@ -148,8 +131,8 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
 
         }
 
-        cameraViewModel.color.observe(viewLifecycleOwner){
-            binding.tvColor.text=cameraViewModel.color.value
+        cameraViewModel.color.observe(viewLifecycleOwner) {
+            binding.tvColor.text = cameraViewModel.color.value
             binding.tvColor.setBackgroundColor(Color.parseColor(cameraViewModel.color.value))
         }
 
@@ -191,7 +174,7 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
         }
     }
 
-    private fun  takeColor(){
+    private fun takeColor() {
 
         viewModel.add(ru.knitforlife.model.Color.getInstance(cameraViewModel.color.value!!))
 
@@ -201,7 +184,6 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
             Toast.LENGTH_SHORT
         ).show()
     }
-
 
 
     private fun startCamera() {
@@ -217,21 +199,21 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
                 }
 
 
-
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
             val imageAnalysis = ImageAnalysis.Builder()
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
 
-            imageAnalysis.setAnalyzer( Executors.newSingleThreadExecutor() ,ColorAnalyzer(cameraViewModel))
+            imageAnalysis.setAnalyzer(
+                Executors.newSingleThreadExecutor(),
+                ColorAnalyzer(cameraViewModel)
+            )
 
             try {
                 cameraProvider.unbindAll()
                 cameraProvider.bindToLifecycle(
-                    this, cameraSelector
-                    , imageAnalysis
-                    , preview
+                    this, cameraSelector, imageAnalysis, preview
                 )
             } catch (exc: Exception) {
                 Log.e(TAG, "Use case binding failed", exc)

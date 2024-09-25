@@ -39,21 +39,13 @@ class CollectionFragment @Inject constructor(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        binding = FragmentCollectionListBinding.inflate(layoutInflater)
-//
-//        subscribe()
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        val view = inflater.inflate(R.layout.fragment_collection_list, container, false)
-//        if (view is RecyclerView) {
-//            with(view) {
-//                adapter = myColorRecyclerViewAdapter
-//            }
-//        }
         _binding = FragmentCollectionListBinding.inflate(inflater, container, false)
         val view = binding.root
         subscribe()
@@ -81,7 +73,9 @@ class CollectionFragment @Inject constructor(
             }
 
         })
+        myColorRecyclerViewAdapter.addList(viewModel.colors.value.orEmpty())
         binding.list.addItemDecoration(getListRecyclerDecoration())
+
         binding.list.adapter = myColorRecyclerViewAdapter
         binding.list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

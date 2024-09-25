@@ -18,13 +18,7 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var collectionFragment: CollectionFragment
     lateinit var binding: ActivityMainBinding
 
-    private val cameraForResultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) {
-        if (it.resultCode == CameraActivity.SUCCESS_RESULT_CODE) {
-//            showPreviewsOnMap()
-        }
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +36,6 @@ class MainActivity : AppCompatActivity() {
             binding.fragmentContainerViewTag.visibility=View.VISIBLE
         }
 
-        binding.toCameraActivityButton.setOnClickListener {
-            cameraForResultLauncher.launch(Intent(this, CameraActivity::class.java))
-        }
 
         binding.toCollectionActivityButton.setOnClickListener {
 

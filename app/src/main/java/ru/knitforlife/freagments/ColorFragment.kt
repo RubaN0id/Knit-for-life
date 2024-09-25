@@ -23,9 +23,6 @@ class ColorFragment @Inject constructor(): Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        viewModel.colors.value.
-
-        // TODO: Use the ViewModelv
     }
 
     override fun onCreateView(
