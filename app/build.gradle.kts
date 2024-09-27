@@ -36,6 +36,10 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    defaultConfig {
+        testInstrumentationRunner ="androidx.test.runner.AndroidJUnitRunner"
+    }
 }
 
 dependencies {
@@ -64,9 +68,16 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
+
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    val espresso = "3.5.1"
+    androidTestImplementation("androidx.test.espresso:espresso-core:$espresso")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:$espresso")
+    androidTestImplementation("androidx.test.espresso:espresso-intents:$espresso")
+
+
 }
 
 allOpen{
