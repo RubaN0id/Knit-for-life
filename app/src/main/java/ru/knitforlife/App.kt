@@ -1,8 +1,18 @@
 package ru.knitforlife
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import di.CameraComponent
+import di.CameraComponentProvider
+import ru.knitforlife.di.ApplicationComponent
+import ru.knitforlife.di.DaggerApplicationComponent
 
-@HiltAndroidApp
+
 class App :Application(){
+    lateinit var appComponent: ApplicationComponent
+
+
+    override fun onCreate() {
+        super.onCreate()
+        appComponent = DaggerApplicationComponent.factory().create(this)
+    }
 }

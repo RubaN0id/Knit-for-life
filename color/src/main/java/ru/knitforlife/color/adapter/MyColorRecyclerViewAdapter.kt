@@ -1,0 +1,73 @@
+package ru.knitforlife.color.adapter
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import ru.knitforlife.color.databinding.FragmentCollectionBinding
+import ru.knitforlife.color.listner.ColorClickListner
+import ru.knitforlife.color.model.Color
+
+/**
+ * [androidx.recyclerview.widget.RecyclerView.Adapter] that can display a [PlaceholderItem].
+ * TODO: Replace the implementation with code for your data type.
+ */
+class MyColorRecyclerViewAdapter (val listner: ColorClickListner)
+    : RecyclerView.Adapter<MyColorRecyclerViewAdapter.ViewHolder>() {
+    private val values: MutableList<Color> = ArrayList<Color>()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+
+        return ViewHolder(
+            FragmentCollectionBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            ),
+            listner
+        )
+
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+       holder.bind(values[position])
+    }
+
+    override fun getItemCount(): Int = values.size
+
+    fun  remove(position: Int) {
+        values.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    fun addList(list: List<Color>) {
+        values.addAll(list)
+        notifyItemRangeInserted(values.size-10,10)
+    }
+
+
+    inner class ViewHolder(val binding: FragmentCollectionBinding,val listner: ColorClickListner) :
+        RecyclerView.ViewHolder(binding.root) {
+        val idView: TextView = binding.itemNumber
+        val contentView: TextView = binding.content
+        val tv: TextView = binding.tvColor
+
+        override fun toString(): String {
+            return super.toString() + " '" + contentView.text + "'"
+        }
+
+        fun bind(item: Color) {
+
+            idView.text = item.name
+            contentView.text = item.toColorString()
+            contentView.setBackgroundColor(android.graphics.Color.parseColor(item.toColorString()))
+            tv.setBackgroundColor(android.graphics.Color.parseColor(item.toColorString()))
+            binding.root.setOnClickListener{
+                listner.onItemClick(item.id)
+            }
+        }
+
+
+
+    }
+
+}
