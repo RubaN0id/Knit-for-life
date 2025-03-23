@@ -6,7 +6,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.knitforlife.color.databinding.FragmentCollectionBinding
 import ru.knitforlife.color.listner.ColorClickListner
-import ru.knitforlife.color.model.Color
+import ru.knitforlife.core.model.Color
+import androidx.core.graphics.toColorInt
 
 /**
  * [androidx.recyclerview.widget.RecyclerView.Adapter] that can display a [PlaceholderItem].
@@ -41,7 +42,7 @@ class MyColorRecyclerViewAdapter (val listner: ColorClickListner)
 
     fun addList(list: List<Color>) {
         values.addAll(list)
-        notifyItemRangeInserted(values.size-10,10)
+        notifyItemRangeInserted(values.size-list.size,list.size)
     }
 
 
@@ -59,8 +60,8 @@ class MyColorRecyclerViewAdapter (val listner: ColorClickListner)
 
             idView.text = item.name
             contentView.text = item.toColorString()
-            contentView.setBackgroundColor(android.graphics.Color.parseColor(item.toColorString()))
-            tv.setBackgroundColor(android.graphics.Color.parseColor(item.toColorString()))
+            contentView.setBackgroundColor(item.toColorString().toColorInt())
+            tv.setBackgroundColor(item.toColorString().toColorInt())
             binding.root.setOnClickListener{
                 listner.onItemClick(item.id)
             }

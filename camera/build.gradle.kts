@@ -40,6 +40,10 @@ android {
 
 dependencies {
 
+    implementation (project(":database"))
+    implementation (project(":core"))
+    implementation (project(":network"))
+
     implementation(libs.camera.core)
     implementation(libs.camera.lifecycle)
     implementation(libs.camera.view)
@@ -55,6 +59,18 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.core.testing)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.espresso.contrib)
+    androidTestImplementation(libs.espresso.intents)
+    androidTestImplementation(libs.mockito.kotlin)
+
+    debugImplementation(libs.androidx.fragment.testing.manifest)
+
+    androidTestImplementation(libs.fragment.testing)
 }

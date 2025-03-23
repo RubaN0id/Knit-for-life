@@ -7,6 +7,7 @@ import ru.knitforlife.di.ApplicationComponent
 import ru.knitforlife.di.DaggerApplicationComponent
 
 
+
 class App :Application(){
     lateinit var appComponent: ApplicationComponent
 

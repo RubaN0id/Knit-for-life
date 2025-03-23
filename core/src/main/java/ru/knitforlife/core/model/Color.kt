@@ -1,9 +1,9 @@
-package ru.knitforlife.color.model
+package ru.knitforlife.core.model
 
 import java.util.UUID
 
 data class Color (
-    val id:String,
+    val id:Int,
     var name:String,
     val red:Int,
     val green:Int,
@@ -25,7 +25,7 @@ data class Color (
     companion object{
         fun getRandom():Color{
             return Color(
-                UUID.randomUUID().toString(),
+                0,
                 listOf("John", "Mary", "Beaver").random(),
                 (0..255).random(),
                 (0..255).random(),
@@ -35,7 +35,7 @@ data class Color (
 
         fun getInstance(hex:String):Color{
             return Color(
-                UUID.randomUUID().toString(),
+               0,
                 "Create by camera",
                 Integer.decode("0x"+hex.substring(1,3)),
                 Integer.decode("0x"+hex.substring(3,5)),

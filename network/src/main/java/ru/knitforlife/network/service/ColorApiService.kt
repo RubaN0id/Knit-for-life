@@ -1,4 +1,4 @@
-package ru.knitforlife.color.service
+package ru.knitforlife.network.service
 
 import android.R.attr.level
 import dagger.Module
@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.knitforlife.color.api.ColorApi
+import ru.knitforlife.network.api.ColorApi
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 

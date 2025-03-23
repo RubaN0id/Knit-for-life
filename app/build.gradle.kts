@@ -51,6 +51,8 @@ android {
 dependencies {
     implementation (project(":camera"))
     implementation (project(":color"))
+    implementation (project(":database"))
+    implementation (project(":network"))
 
 
 

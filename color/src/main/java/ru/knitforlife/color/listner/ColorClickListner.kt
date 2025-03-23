@@ -2,5 +2,5 @@ package ru.knitforlife.color.listner
 
 interface ColorClickListner {
 
-    fun onItemClick(id:String)
+    fun onItemClick(id: Int)
 }

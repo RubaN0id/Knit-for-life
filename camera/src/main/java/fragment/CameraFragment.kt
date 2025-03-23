@@ -6,6 +6,7 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.graphics.drawable.Animatable
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -16,6 +17,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -105,6 +107,11 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        cameraComponent = (safeContext as CameraComponentProvider).provideCameraComponent()
+
+
+        cameraComponent.inject(this)
+
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 cameraViewModel.color.collect { color ->
@@ -117,6 +124,7 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
                 }
             }
         }
+
     }
 
     override fun onCreateView(
@@ -133,10 +141,7 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
             )
         }
 
-        cameraComponent = (safeContext as CameraComponentProvider).provideCameraComponent()
 
-
-        cameraComponent.inject(this)
 
 
         cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
@@ -161,6 +166,8 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
             takeColor()
 
         }
+
+        animate(binding.aim)
 
 
         val view = binding.root
@@ -252,6 +259,13 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(safeContext, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun animate(view: ImageView) {
+        val drawable = view.drawable
+        if (drawable is Animatable) {
+            (drawable as Animatable).start()
+        }
     }
 
 

@@ -9,6 +9,8 @@ espresso = "3.6.1"
 fragmentKtx = "1.8.6"
 dagger = "2.55"
 daggerCompiler = "2.55"
+fragmentTesting = "1.8.6"
+fragmentTestingManifest = "1.8.6"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 kotlinxCoroutinesTest = "1.7.3"
@@ -23,8 +25,14 @@ androidGradlePugin = "8.9.0"
 kotlinPlugin = "2.1.10"
 allOpenPlugin = "1.9.21"
 ksp = "2.0.20-1.0.25"
+roomRuntime = "2.6.1"
+hiltAndroid = "2.55"
 
 [libraries]
+androidx-fragment-testing-manifest = { module = "androidx.fragment:fragment-testing-manifest", version.ref = "fragmentTestingManifest" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCore" }
 camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraCore" }
@@ -41,6 +49,7 @@ ext-junit = { module = "androidx.test.ext:junit", version.ref = "junitVersion" }
 fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
 dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
 dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "daggerCompiler" }
+fragment-testing = { module = "androidx.fragment:fragment-testing", version.ref = "fragmentTesting" }
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacySupportV4" }
@@ -51,6 +60,8 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
 recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "converterGson" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroid" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hiltAndroid" }
 
 [plugins]
 

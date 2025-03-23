@@ -3,7 +3,10 @@ package ru.knitforlife.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import dagger.Provides
 import di.CameraComponent
+import ru.knitforlife.database.AppDatabase
+import ru.knitforlife.database.di.DbModule
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -23,6 +26,11 @@ interface ApplicationComponent {
 
     @AppContext
     fun provideAppContext(): Context
+
+
+
+
+
 
 
 }

@@ -1,4 +1,4 @@
-package ru.knitforlife.color.api
+package ru.knitforlife.network.api
 
 import retrofit2.http.GET
 import retrofit2.http.Headers

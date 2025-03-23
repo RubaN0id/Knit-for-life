@@ -38,11 +38,12 @@ android {
 }
 
 dependencies {
+    implementation (project(":database"))
+    implementation (project(":network"))
+    implementation (project(":core"))
 
 
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
-    implementation (libs.logging.interceptor)
+
 
     implementation(libs.dagger)
     ksp (libs.dagger.compiler)

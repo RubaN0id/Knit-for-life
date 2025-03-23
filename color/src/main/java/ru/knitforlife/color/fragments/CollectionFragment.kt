@@ -10,11 +10,8 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,9 +45,27 @@ class CollectionFragment @Inject constructor(
     private val binding get() = _binding!!
 
     private lateinit var collectionComponent: ColorCollectionComponent
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        collectionComponent = (context as ColorCollectionComponentProvider).provideColorCollectionComponent()
 
+        collectionComponent.inject(this)
+
+//        viewModel.observeColors()
+
+//        viewModel.observer
+//            .onEach {
+//                if (it != null) {
+//                    val color = ru.knitforlife.color.model.Color.getInstance(it)
+//                    val response =
+//                        viewModel.api.getColorName(ru.knitforlife.color.model.Color.getInstance(it).toColorString().substring(1))
+//                    color.name = response.name.value
+//                    viewModel.add(color)
+//                }
+//            }
+//            .launchIn(lifecycleScope)
 
     }
 
@@ -58,11 +73,7 @@ class CollectionFragment @Inject constructor(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        collectionComponent = (context as ColorCollectionComponentProvider).provideColorCollectionComponent()
 
-        collectionComponent.inject(this)
-
-        viewModel.observeColors()
 
         _binding = FragmentCollectionListBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -71,18 +82,18 @@ class CollectionFragment @Inject constructor(
     }
 
    fun subscribe() {
-//       lifecycleScope.launch {
-//           repeatOnLifecycle(Lifecycle.State.STARTED) {
-//               viewModel.colorFlow.onEach { color ->
-//                   // Update UI with the new count value
-//                   myColorRecyclerViewAdapter.addList(color!!)
-//               }
-//           }
-//       }
+       lifecycleScope.launch {
+           repeatOnLifecycle(Lifecycle.State.RESUMED) {
+               viewModel.colorFlow.onEach { color ->
+                   // Update UI with the new count value
+                   myColorRecyclerViewAdapter.addList(color!!)
+               }
+           }
+       }
 
-       viewModel.colorFlow.flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
-           .onEach { myColorRecyclerViewAdapter.addList(it!!) }
-           .launchIn(lifecycleScope)
+//       viewModel.colorFlow.flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
+//           .onEach { myColorRecyclerViewAdapter.addList(it!!) }
+//           .launchIn(lifecycleScope)
 
 //        viewModel.colorFlow.onEach { color ->
 //            // Update UI with the new count value
@@ -96,7 +107,7 @@ class CollectionFragment @Inject constructor(
 
     fun configureRecycler() {
         myColorRecyclerViewAdapter = MyColorRecyclerViewAdapter(object : ColorClickListner {
-            override fun onItemClick(id: String) {
+            override fun onItemClick(id: Int) {
                 parentFragmentManager.beginTransaction()
 //                    .replace(R.id.fragment_container_view_tag, colorFragment)
                     .addToBackStack("collection")
@@ -104,7 +115,7 @@ class CollectionFragment @Inject constructor(
             }
 
         })
-        myColorRecyclerViewAdapter.addList(viewModel.colorFlow.value.orEmpty())
+//        myColorRecyclerViewAdapter.addList(viewModel.colorFlow.value.orEmpty())
         binding.list.addItemDecoration(getListRecyclerDecoration())
 
         binding.list.adapter = myColorRecyclerViewAdapter

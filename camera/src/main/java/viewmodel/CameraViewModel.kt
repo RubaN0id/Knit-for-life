@@ -9,10 +9,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.knitforlife.database.repository.ColorRepository
 import javax.inject.Inject
 
 class CameraViewModel @Inject constructor(
-    private val _color: MutableStateFlow<String?>
+    val colorRepository: ColorRepository
 ):ViewModel() {
 
     val color = MutableStateFlow<String?>(null)
@@ -20,16 +21,19 @@ class CameraViewModel @Inject constructor(
         this.color.value=color
     }
     fun save(){
-        this._color.value=this.color.value
+//        this._color.value=this.color.value
+//        this._color.update { it->
+//            this.color.value }
     }
 
 
 
     class Factory @Inject constructor(
-        private val colorEventProducer: MutableStateFlow<String?>
+        private val colorRepository: ColorRepository
     ) : ViewModelProvider.Factory {
 
+
         override fun <T : ViewModel> create(modelClass: Class<T>): T =
-            CameraViewModel( colorEventProducer) as T
+            CameraViewModel( colorRepository) as T
     }
 }

@@ -3,20 +3,27 @@ package ru.knitforlife.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import dagger.Provides
 import di.CameraComponent
-import fragment.CameraFragment
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import ru.knitforlife.MainActivity
 import ru.knitforlife.color.di.ColorCollectionComponent
-import ru.knitforlife.color.service.ColorApiService
+import ru.knitforlife.database.AppDatabase
+import ru.knitforlife.database.dao.ColorDao
+import ru.knitforlife.database.di.DbModule
+//import ru.knitforlife.database.di.DbModule
+import ru.knitforlife.network.service.ColorApiService
+
 import javax.inject.Qualifier
 import javax.inject.Scope
 
 @ActivityScope
 @Component(
     dependencies = [ApplicationComponent::class],
-    modules = [ColorEventModule::class,SubcomponentsModule::class, ColorApiService::class]
+    modules = [SubcomponentsModule::class, ColorApiService::class
+//        ,DbModule::class
+    ]
 )
 interface MainActivityComponent {
 
@@ -37,9 +44,6 @@ interface MainActivityComponent {
     @ActivityContext
     fun provideActivityContext(): Context
 
-    fun provideColorEventProducer(): MutableStateFlow<String?>
-
-    fun provideColorEventObserver(): StateFlow<String?>
 
     fun cameraComponent(): CameraComponent.Factory
 

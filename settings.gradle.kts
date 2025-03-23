@@ -17,3 +17,6 @@ rootProject.name = "Knit for life"
 include(":app")
 include(":camera")
 include(":color")
+include(":database")
+include(":network")
+include(":core")
