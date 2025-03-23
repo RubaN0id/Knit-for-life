@@ -3,6 +3,7 @@ plugins {
     alias (libs.plugins.kotlin)
     alias (libs.plugins.ksp)
     alias (libs.plugins.allOpen)
+    alias (libs.plugins.hilt)
 }
 
 android {
@@ -45,8 +46,11 @@ dependencies {
 
 
 
-    implementation(libs.dagger)
-    ksp (libs.dagger.compiler)
+//    implementation(libs.dagger)
+//    ksp (libs.dagger.compiler)
+
+    implementation(libs.hilt.android)
+    ksp (libs.hilt.compiler)
 
 
     implementation(libs.core.ktx)

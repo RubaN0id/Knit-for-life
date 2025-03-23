@@ -3,6 +3,8 @@ package ru.knitforlife.network.service
 import android.R.attr.level
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,6 +15,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 object ColorApiService {
 
     private const val BASE_URL = "https://www.thecolorapi.com/"

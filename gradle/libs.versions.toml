@@ -70,4 +70,5 @@ android-library = {id = "com.android.library",version.ref = "androidGradlePugin"
 kotlin = {id = "org.jetbrains.kotlin.android",version.ref = "kotlinPlugin"}
 allOpen = {id = "org.jetbrains.kotlin.plugin.allopen",version.ref = "allOpenPlugin"}
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
 

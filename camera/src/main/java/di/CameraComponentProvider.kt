@@ -1,5 +1,5 @@
-package di
-
-interface CameraComponentProvider {
-    fun provideCameraComponent(): CameraComponent
-}
+//package di
+//
+//interface CameraComponentProvider {
+//    fun provideCameraComponent(): CameraComponent
+//}

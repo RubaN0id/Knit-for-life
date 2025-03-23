@@ -2,6 +2,7 @@ plugins {
     alias (libs.plugins.android.library)
     alias (libs.plugins.kotlin)
     alias (libs.plugins.ksp)
+    alias (libs.plugins.hilt)
 
 }
 
@@ -49,8 +50,11 @@ dependencies {
     implementation(libs.camera.view)
     implementation(libs.camera.camera2)
 
-    implementation(libs.dagger)
-    ksp (libs.dagger.compiler)
+//    implementation(libs.dagger)
+//    ksp (libs.dagger.compiler)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
 
     implementation(libs.core.ktx)

@@ -3,6 +3,7 @@ plugins {
     alias (libs.plugins.kotlin)
     alias (libs.plugins.allOpen)
     alias (libs.plugins.ksp)
+    alias (libs.plugins.hilt)
 //    id ("com.android.dynamic-feature")
 }
 
@@ -58,8 +59,10 @@ dependencies {
 
 
     implementation(libs.recyclerview)
-    implementation(libs.dagger)
-    ksp(libs.dagger.compiler)
+//    implementation(libs.dagger)
+//    ksp(libs.dagger.compiler)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)

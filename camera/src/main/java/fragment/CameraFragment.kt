@@ -32,23 +32,16 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.common.util.concurrent.ListenableFuture
-import dagger.Module
-import di.CameraComponent
-import di.CameraComponentProvider
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.getAndUpdate
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onEach
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.knitforlife.camera.R
 import ru.knitforlife.camera.databinding.FragmentCameraBinding
 import viewmodel.CameraViewModel
-import viewmodel.CameraViewModel_Factory
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) {
 
     companion object {
@@ -63,8 +56,9 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
     }
 
 
-     val cameraViewModel: CameraViewModel by viewModels{factory}
-    @Inject lateinit var factory: CameraViewModel.Factory
+     val cameraViewModel: CameraViewModel by viewModels()
+//     val cameraViewModel: CameraViewModel by viewModels{factory}
+//    @Inject lateinit var factory: CameraViewModel.Factory
 
 //    override fun onCreateView(
 //        inflater: LayoutInflater, container: ViewGroup?,
@@ -86,7 +80,7 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
     private lateinit var surfaceProvider: Preview.SurfaceProvider
     private var tiltSensor: Sensor? = null
 
-    private lateinit var cameraComponent: CameraComponent
+//    private lateinit var cameraComponent: CameraComponent
 
 
     override fun onAttach(context: Context) {
@@ -107,10 +101,10 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        cameraComponent = (safeContext as CameraComponentProvider).provideCameraComponent()
-
-
-        cameraComponent.inject(this)
+//        cameraComponent = (safeContext as CameraComponentProvider).provideCameraComponent()
+//
+//
+//        cameraComponent.inject(this)
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

@@ -3,6 +3,7 @@ package ru.knitforlife.color.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,6 +19,7 @@ import ru.knitforlife.database.repository.ColorRepository
 import javax.inject.Inject
 
 @Open
+@HiltViewModel
 class ColorsViewModel @Inject constructor(
     val api: ColorApi,
     val colorRepository:ColorRepository
@@ -111,13 +113,13 @@ class ColorsViewModel @Inject constructor(
         _colorFlow.update { items }
     }
 
-    class Factory @Inject constructor(
-        private val colorRepository: ColorRepository,
-        private val api: ColorApi,
-    ) : ViewModelProvider.Factory {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T =
-            ColorsViewModel(api, colorRepository) as T
-
-    }
+//    class Factory @Inject constructor(
+//        private val colorRepository: ColorRepository,
+//        private val api: ColorApi,
+//    ) : ViewModelProvider.Factory {
+//
+//        override fun <T : ViewModel> create(modelClass: Class<T>): T =
+//            ColorsViewModel(api, colorRepository) as T
+//
+//    }
 }

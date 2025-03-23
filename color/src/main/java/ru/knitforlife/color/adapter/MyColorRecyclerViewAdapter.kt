@@ -60,7 +60,6 @@ class MyColorRecyclerViewAdapter (val listner: ColorClickListner)
 
             idView.text = item.name
             contentView.text = item.toColorString()
-            contentView.setBackgroundColor(item.toColorString().toColorInt())
             tv.setBackgroundColor(item.toColorString().toColorInt())
             binding.root.setOnClickListener{
                 listner.onItemClick(item.id)

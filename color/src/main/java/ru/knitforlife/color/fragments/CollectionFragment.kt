@@ -1,6 +1,5 @@
 package ru.knitforlife.color.fragments
 
-import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,12 +9,14 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -23,35 +24,36 @@ import ru.knitforlife.color.R
 import ru.knitforlife.color.adapter.MyColorRecyclerViewAdapter
 import ru.knitforlife.color.callback.SwipeCallBack
 import ru.knitforlife.color.databinding.FragmentCollectionListBinding
-import ru.knitforlife.color.di.ColorCollectionComponent
-import ru.knitforlife.color.di.ColorCollectionComponentProvider
 import ru.knitforlife.color.listner.ColorClickListner
 import ru.knitforlife.color.viewmodel.ColorsViewModel
 import javax.inject.Inject
+import kotlin.getValue
 
 /**
  * A fragment representing a list of Items.
  */
 
+@AndroidEntryPoint
 class CollectionFragment @Inject constructor(
     val colorFragment: ColorFragment
 ) : Fragment() {
 
     private var columnCount = 1
     private lateinit var myColorRecyclerViewAdapter: MyColorRecyclerViewAdapter
-    val  viewModel: ColorsViewModel by  viewModels{factory}
-    @Inject lateinit var  factory: ColorsViewModel.Factory
+    val viewModel: ColorsViewModel by viewModels()
+//    val  viewModel: ColorsViewModel by  viewModels{factory}
+//    @Inject lateinit var  factory: ColorsViewModel.Factory
     private var _binding:FragmentCollectionListBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var collectionComponent: ColorCollectionComponent
+//    private lateinit var collectionComponent: ColorCollectionComponent
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        collectionComponent = (context as ColorCollectionComponentProvider).provideColorCollectionComponent()
-
-        collectionComponent.inject(this)
+//        collectionComponent = (context as ColorCollectionComponentProvider).provideColorCollectionComponent()
+//
+//        collectionComponent.inject(this)
 
 //        viewModel.observeColors()
 
@@ -82,18 +84,18 @@ class CollectionFragment @Inject constructor(
     }
 
    fun subscribe() {
-       lifecycleScope.launch {
-           repeatOnLifecycle(Lifecycle.State.RESUMED) {
-               viewModel.colorFlow.onEach { color ->
-                   // Update UI with the new count value
-                   myColorRecyclerViewAdapter.addList(color!!)
-               }
-           }
-       }
+//       lifecycleScope.launch {
+//           repeatOnLifecycle(Lifecycle.State.RESUMED) {
+//               viewModel.colorFlow.onEach { color ->
+//                   // Update UI with the new count value
+//                   myColorRecyclerViewAdapter.addList(color!!)
+//               }
+//           }
+//       }
 
-//       viewModel.colorFlow.flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
-//           .onEach { myColorRecyclerViewAdapter.addList(it!!) }
-//           .launchIn(lifecycleScope)
+       viewModel.colorFlow.flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
+           .onEach { myColorRecyclerViewAdapter.addList(it!!) }
+           .launchIn(lifecycleScope)
 
 //        viewModel.colorFlow.onEach { color ->
 //            // Update UI with the new count value

@@ -10,7 +10,7 @@ import ru.knitforlife.database.dao.ColorDao
 import ru.knitforlife.database.di.DbModule
 import ru.knitforlife.database.dto.Color
 
-@Database(entities = [Color::class], version = 1)
+@Database(entities = [Color::class], version = 1, exportSchema = false )
 abstract class AppDatabase: RoomDatabase() {
     abstract fun colorDao(): ColorDao
 

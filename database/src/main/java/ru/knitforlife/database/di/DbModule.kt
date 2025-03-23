@@ -22,7 +22,7 @@ import javax.inject.Singleton
 class DbModule {
 
     @Provides
-    fun provideLocalDatabase(@ApplicationContext context: Application) =  AppDatabase.createInstance(context)
+    fun provideLocalDatabase(@ApplicationContext context: Context): AppDatabase =  AppDatabase.createInstance(context)
 
     @Provides
     fun providesColorDao(appDataBase: AppDatabase): ColorDao = appDataBase.colorDao()
