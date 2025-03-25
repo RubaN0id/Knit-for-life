@@ -12,9 +12,6 @@ class ColorRepository @Inject constructor(
     val colorDao: ColorDao
 ) {
 
-//    suspend fun getAll(): List<Color>{
-//        return colorDao.getAll().map { it -> it.toColor() }
-//    }
 
     fun getAll(): Flow<List<Color>> = colorDao.getAll().map { it -> it.map { color-> color.toColor() } }
 

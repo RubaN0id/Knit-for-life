@@ -42,33 +42,12 @@ class CollectionFragment @Inject constructor(
     private var columnCount = 1
     private lateinit var myColorRecyclerViewAdapter: MyColorRecyclerViewAdapter
     val viewModel: ColorsViewModel by viewModels()
-//    val  viewModel: ColorsViewModel by  viewModels{factory}
-//    @Inject lateinit var  factory: ColorsViewModel.Factory
     private var _binding:FragmentCollectionListBinding? = null
     private val binding get() = _binding!!
-
-//    private lateinit var collectionComponent: ColorCollectionComponent
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        collectionComponent = (context as ColorCollectionComponentProvider).provideColorCollectionComponent()
-//
-//        collectionComponent.inject(this)
-
-//        viewModel.observeColors()
-
-//        viewModel.observer
-//            .onEach {
-//                if (it != null) {
-//                    val color = ru.knitforlife.color.model.Color.getInstance(it)
-//                    val response =
-//                        viewModel.api.getColorName(ru.knitforlife.color.model.Color.getInstance(it).toColorString().substring(1))
-//                    color.name = response.name.value
-//                    viewModel.add(color)
-//                }
-//            }
-//            .launchIn(lifecycleScope)
 
     }
 
@@ -90,23 +69,12 @@ class CollectionFragment @Inject constructor(
     }
 
    fun subscribe() {
-//       lifecycleScope.launch {
-//           repeatOnLifecycle(Lifecycle.State.RESUMED) {
-//               viewModel.colorFlow.onEach { color ->
-//                   // Update UI with the new count value
-//                   myColorRecyclerViewAdapter.addList(color!!)
-//               }
-//           }
-//       }
+
 
        viewModel.colorFlow.flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
            .onEach { myColorRecyclerViewAdapter.addList(it!!) }
            .launchIn(lifecycleScope)
 
-//        viewModel.colorFlow.onEach { color ->
-//            // Update UI with the new count value
-//            myColorRecyclerViewAdapter.addList(color!!)
-//        }
 
         configureRecycler()
         setupSwipe(binding.list)
@@ -123,7 +91,6 @@ class CollectionFragment @Inject constructor(
             }
 
         })
-//        myColorRecyclerViewAdapter.addList(viewModel.colorFlow.value.orEmpty())
         binding.list.addItemDecoration(getListRecyclerDecoration())
 
         binding.list.adapter = myColorRecyclerViewAdapter

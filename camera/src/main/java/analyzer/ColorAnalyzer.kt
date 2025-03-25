@@ -62,22 +62,5 @@ class ColorAnalyzer () {
 
     }
 
-//    // analyze the color
-//    override fun analyze(image: ImageProxy) {
-//        val currentTimestamp = System.currentTimeMillis()
-//        if (currentTimestamp - lastAnalyzedTimestamp >= TimeUnit.MILLISECONDS.toMillis(100)) {
-//
-//            val colors = getRGBfromYUV(image)
-//            var hexColor = String.format("#%02x%02x%02x", colors.first.toInt(), colors.second.toInt(), colors.third.toInt())
-////            Log.d("test", "hexColor: $hexColor")
-//            cameraViewModel.takeColor(hexColor)
-//
-//            lastAnalyzedTimestamp = currentTimestamp
-//        }
-//
-//        image.close()
-//
-//    }
-
 
 }

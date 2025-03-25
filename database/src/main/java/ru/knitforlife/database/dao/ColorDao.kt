@@ -9,7 +9,6 @@ import ru.knitforlife.database.dto.Color
 @Dao
 interface ColorDao {
     @Query("Select * from color")
-//    suspend fun getAll(): List<Color>
    fun getAll(): Flow<List<Color>>
 
     @Insert

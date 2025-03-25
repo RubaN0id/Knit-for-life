@@ -71,9 +71,6 @@ class MyColorRecyclerViewAdapter (val listner: ColorClickListner)
             idView.text = item.name
             contentView.text = item.toColorString().uppercase()
             tv.setColorFilter(item.toColorString().toColorInt(), PorterDuff.Mode.SRC_IN)
-
-//            DrawableCompat.setTint(tv.drawable,item.toColorString().toColorInt() )
-//            DrawableCompat.setTint(tv.drawable,item.toColorString().toColorInt() )
             binding.root.setOnClickListener{
                 listner.onItemClick(item.id)
             }

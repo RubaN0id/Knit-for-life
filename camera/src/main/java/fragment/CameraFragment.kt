@@ -58,17 +58,7 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
         const val SUCCESS_RESULT_CODE = 15
     }
 
-
     val cameraViewModel: CameraViewModel by activityViewModels()
-//     val cameraViewModel: CameraViewModel by viewModels{factory}
-//    @Inject lateinit var factory: CameraViewModel.Factory
-
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View {
-//        return inflater.inflate(R.layout.fragment_camera, container, false)
-//    }
 
     private var _binding: FragmentCameraBinding? = null
     private val binding get() = _binding!!
@@ -76,38 +66,23 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
 
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
     private lateinit var cameraProvider: ProcessCameraProvider
-    private lateinit var imageCapture: ImageCapture
 
     private lateinit var sensorManager: SensorManager
     private lateinit var sensorEventListener: SensorEventListener
-    private lateinit var surfaceProvider: Preview.SurfaceProvider
     private var tiltSensor: Sensor? = null
 
-//    private lateinit var cameraComponent: CameraComponent
 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         safeContext = context
 
-
-//        if (allPermissionsGranted()) {
-//            startCamera()
-//        } else {
-//            ActivityCompat.requestPermissions(
-//                requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
-//            )
-//        }
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        cameraComponent = (safeContext as CameraComponentProvider).provideCameraComponent()
-//
-//
-//        cameraComponent.inject(this)
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -204,8 +179,6 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
     }
 
     private fun takeColor() {
-
-//        viewModel.add(ru.knitforlife.model.Color.getInstance(cameraViewModel.color.value!!))
         cameraViewModel.save()
 
         Toast.makeText(
