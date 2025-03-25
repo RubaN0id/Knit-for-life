@@ -38,7 +38,10 @@ import ru.knitforlife.camera.R
 import ru.knitforlife.camera.databinding.FragmentCameraBinding
 import viewmodel.CameraViewModel
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import androidx.core.graphics.toColorInt
+import androidx.fragment.app.activityViewModels
 
 
 @AndroidEntryPoint
@@ -56,7 +59,7 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
     }
 
 
-     val cameraViewModel: CameraViewModel by viewModels()
+    val cameraViewModel: CameraViewModel by activityViewModels()
 //     val cameraViewModel: CameraViewModel by viewModels{factory}
 //    @Inject lateinit var factory: CameraViewModel.Factory
 
@@ -110,9 +113,9 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 cameraViewModel.color.collect { color ->
 
-                    if(color!=null) {
+                    if (color != null) {
                         binding.tvColor.text = color
-                        binding.tvColor.setBackgroundColor(Color.parseColor(color))
+                        binding.tvColor.setBackgroundColor(color.toColorInt())
                     }
 
                 }
@@ -134,8 +137,6 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
                 requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
             )
         }
-
-
 
 
         cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
@@ -224,7 +225,7 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
             val preview = Preview.Builder()
                 .build()
                 .also {
-                    it.setSurfaceProvider(binding.previewFragmentView.surfaceProvider)
+                    it.surfaceProvider = binding.previewFragmentView.surfaceProvider
                 }
 
 
@@ -234,10 +235,26 @@ class CameraFragment @Inject constructor() : Fragment(R.layout.fragment_camera) 
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
 
-            imageAnalysis.setAnalyzer(
-                Executors.newSingleThreadExecutor(),
-                ColorAnalyzer(cameraViewModel)
-            )
+//            imageAnalysis.setAnalyzer(
+//                Executors.newSingleThreadExecutor(),
+//                ColorAnalyzer(cameraViewModel)
+//            )
+
+            imageAnalysis.setAnalyzer(Executors.newSingleThreadExecutor())
+            { imageProxy ->
+
+                val colors = ColorAnalyzer.getRGBfromYUV(imageProxy)
+                var hexColor = String.format(
+                    "#%02x%02x%02x",
+                    colors.first.toInt(),
+                    colors.second.toInt(),
+                    colors.third.toInt()
+                )
+//            Log.d("test", "hexColor: $hexColor")
+                cameraViewModel.takeColor(hexColor)
+
+                imageProxy.close()
+            }
 
             try {
                 cameraProvider.unbindAll()

@@ -1,13 +1,23 @@
 package ru.knitforlife.color.adapter
 
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffXfermode
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.VectorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import ru.knitforlife.color.databinding.FragmentCollectionBinding
 import ru.knitforlife.color.listner.ColorClickListner
 import ru.knitforlife.core.model.Color
 import androidx.core.graphics.toColorInt
+import androidx.core.widget.ImageViewCompat
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 
 /**
  * [androidx.recyclerview.widget.RecyclerView.Adapter] that can display a [PlaceholderItem].
@@ -50,7 +60,7 @@ class MyColorRecyclerViewAdapter (val listner: ColorClickListner)
         RecyclerView.ViewHolder(binding.root) {
         val idView: TextView = binding.itemNumber
         val contentView: TextView = binding.content
-        val tv: TextView = binding.tvColor
+        val tv: ImageView = binding.tvColor
 
         override fun toString(): String {
             return super.toString() + " '" + contentView.text + "'"
@@ -59,8 +69,11 @@ class MyColorRecyclerViewAdapter (val listner: ColorClickListner)
         fun bind(item: Color) {
 
             idView.text = item.name
-            contentView.text = item.toColorString()
-            tv.setBackgroundColor(item.toColorString().toColorInt())
+            contentView.text = item.toColorString().uppercase()
+            tv.setColorFilter(item.toColorString().toColorInt(), PorterDuff.Mode.SRC_IN)
+
+//            DrawableCompat.setTint(tv.drawable,item.toColorString().toColorInt() )
+//            DrawableCompat.setTint(tv.drawable,item.toColorString().toColorInt() )
             binding.root.setOnClickListener{
                 listner.onItemClick(item.id)
             }

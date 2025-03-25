@@ -1,5 +1,6 @@
 package ru.knitforlife.color.fragments
 
+import android.content.Context
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -81,6 +82,11 @@ class CollectionFragment @Inject constructor(
         val view = binding.root
         subscribe()
         return view
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        viewModel.load()
     }
 
    fun subscribe() {

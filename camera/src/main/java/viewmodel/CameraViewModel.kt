@@ -1,14 +1,9 @@
 package viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.viewModelFactory
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.knitforlife.core.model.Color
 import ru.knitforlife.database.repository.ColorRepository
@@ -38,5 +33,9 @@ class CameraViewModel @Inject constructor(
             }
 
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
     }
 }

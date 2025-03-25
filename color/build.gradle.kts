@@ -50,6 +50,7 @@ dependencies {
 //    ksp (libs.dagger.compiler)
 
     implementation(libs.hilt.android)
+    implementation(libs.androidx.vectordrawable)
     ksp (libs.hilt.compiler)
 
 
