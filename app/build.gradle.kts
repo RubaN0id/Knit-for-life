@@ -1,37 +1,44 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
-    id("kotlin-kapt")
-    id ("org.jetbrains.kotlin.plugin.allopen")
+    alias (libs.plugins.android.application)
+    alias (libs.plugins.kotlin)
+    alias (libs.plugins.allOpen)
+    alias (libs.plugins.ksp)
+    alias (libs.plugins.hilt)
+//    id ("com.android.dynamic-feature")
 }
 
 android {
     namespace = "ru.knitforlife"
-    compileSdk = 34
+    compileSdk = 35
+
 
     defaultConfig {
+
         applicationId = "ru.knitforlife"
         minSdk = 31
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
+
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
+
     buildTypes {
+
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "11"
     }
     buildFeatures {
         viewBinding = true
@@ -43,39 +50,38 @@ android {
 }
 
 dependencies {
-    val camerax_version = "1.4.0-rc02"
-
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
-    implementation("com.google.dagger:hilt-android:2.52")
-    kapt ("com.google.dagger:hilt-compiler:2.52")
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.6")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
-    implementation("androidx.fragment:fragment-ktx:1.8.3")
-    implementation("androidx.camera:camera-core:$camerax_version")
-    implementation("androidx.camera:camera-lifecycle:$camerax_version")
-    implementation("androidx.camera:camera-view:$camerax_version")
-    implementation("androidx.camera:camera-camera2:$camerax_version")
-
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
+    implementation (project(":camera"))
+    implementation (project(":color"))
+    implementation (project(":database"))
+    implementation (project(":network"))
 
 
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    val espresso = "3.5.1"
-    androidTestImplementation("androidx.test.espresso:espresso-core:$espresso")
-    androidTestImplementation("androidx.test.espresso:espresso-contrib:$espresso")
-    androidTestImplementation("androidx.test.espresso:espresso-intents:$espresso")
+
+
+    implementation(libs.recyclerview)
+//    implementation(libs.dagger)
+//    ksp(libs.dagger.compiler)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.core.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.constraintlayout)
+    implementation(libs.legacy.support.v4)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.fragment.ktx)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.core.testing)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.espresso.contrib)
+    androidTestImplementation(libs.espresso.intents)
 
 
 }
