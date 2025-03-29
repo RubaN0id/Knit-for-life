@@ -2,6 +2,7 @@ package ru.knitforlife.color.model
 
 import org.junit.Assert
 import org.junit.Test
+import ru.knitforlife.core.model.Color
 
 class ColorTest {
 
@@ -17,14 +18,14 @@ class ColorTest {
 
     @Test
     fun toColorString255255255(){
-        val color = Color("12","test",255,255,255)
+        val color = Color(12,"test",255,255,255)
 
         Assert.assertEquals("#ffffff",color.toColorString())
     }
 
     @Test
     fun toColorStringr0g126b84(){
-        val color = Color("12","test",0,126,84)
+        val color = Color(12,"test",0,126,84)
 
         Assert.assertEquals("#007e54",color.toColorString())
     }

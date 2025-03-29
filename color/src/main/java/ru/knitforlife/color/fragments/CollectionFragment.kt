@@ -65,7 +65,6 @@ class CollectionFragment @Inject constructor(
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        viewModel.load()
     }
 
    fun subscribe() {
@@ -78,37 +77,40 @@ class CollectionFragment @Inject constructor(
 
         configureRecycler()
         setupSwipe(binding.list)
-        viewModel.load()
+
     }
 
     fun configureRecycler() {
+
+        // Временно убран для исправления бага в навигации
         myColorRecyclerViewAdapter = MyColorRecyclerViewAdapter(object : ColorClickListner {
             override fun onItemClick(id: Int) {
-                parentFragmentManager.beginTransaction()
-//                    .replace(R.id.fragment_container_view_tag, colorFragment)
-                    .addToBackStack("collection")
-                    .commit()
+//                parentFragmentManager.beginTransaction()
+////                    .replace(R.id.fragment_container_view_tag, colorFragment)
+//                    .addToBackStack("collection")
+//                    .commit()
             }
 
         })
         binding.list.addItemDecoration(getListRecyclerDecoration())
 
         binding.list.adapter = myColorRecyclerViewAdapter
-        binding.list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val visibleItemCount = layoutManager.childCount
-                val totalItemCount = layoutManager.itemCount
-                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-
-                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
-                    && firstVisibleItemPosition >= 0
-                ) {
-                    viewModel.load()
-                }
-            }
-        })
+        // TODO включить при работе с пагинацией
+//        binding.list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+//                val visibleItemCount = layoutManager.childCount
+//                val totalItemCount = layoutManager.itemCount
+//                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+//
+//                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+//                    && firstVisibleItemPosition >= 0
+//                ) {
+//                    viewModel.load()
+//                }
+//            }
+//        })
 
 
     }

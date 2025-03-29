@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/backgroundMain"
     tools:context=".MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
@@ -13,64 +14,44 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="296dp"
+        android:src="@drawable/logo" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Knit for life"
-            android:textAlignment="center"
-             />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/camera_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1">
 
-
-
-            <ImageButton
+            <Button
                 android:id="@+id/toCameraButton"
                 android:layout_width="250dp"
-                android:layout_height="250dp"
+                android:layout_height="100dp"
                 android:contentDescription="пряжа"
-                android:src="@drawable/baseline_camera_24"
-                android:tooltipText="Пряжа"
+                android:text="Сделать фото"
+                app:layout_constraintBottom_toTopOf="@id/toCollectionActivityButton"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/collection_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-
-
-
-            <ImageButton
+            <Button
                 android:id="@+id/toCollectionActivityButton"
                 android:layout_width="250dp"
-                android:layout_height="250dp"
+                android:layout_height="100dp"
                 android:contentDescription="Коллекция"
-                android:src="@drawable/baseline_dashboard_24"
-                android:tooltipText="Пряжа"
+                android:text="Галлерея цветов"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/toCameraButton" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+
 
 </LinearLayout>

@@ -64,8 +64,11 @@ dependencies {
     implementation(libs.material)
     testImplementation(libs.junit)
     testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.mockito.inline)
     testImplementation(libs.core.testing)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.camera.core)
+
 
 
     androidTestImplementation(libs.ext.junit)

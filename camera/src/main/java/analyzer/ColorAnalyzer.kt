@@ -3,15 +3,8 @@ package analyzer
 import androidx.camera.core.ImageProxy
 import java.nio.ByteBuffer
 
-//class ColorAnalyzer (val cameraViewModel: CameraViewModel): ImageAnalysis.Analyzer {
+
 class ColorAnalyzer () {
-
-//    private var lastAnalyzedTimestamp = 0L
-
-
-
-
-
 
     companion object {
 
